@@ -1,8 +1,6 @@
 # WeatherApp2
 
 
-# Weather_app
-
 
                                                   Weather Station App Project
 Group members:
