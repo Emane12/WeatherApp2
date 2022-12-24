@@ -25,14 +25,16 @@ class HomeScreen extends StatefulWidget  {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
-  String temperature = "";
-  String humidity = "";
+  String temperature = "Loading...";
+  String humidity = "Loading...";
+  double cent = 0.0;
+  bool switchSelected = false;
+  int centigrade = 0;
   int counter = 0;
   final String atSignPico = "@distinctiveblue";
   final String key = "temperature";
   AtClientManager atClientManager = AtClientManager.getInstance();
   Timer? timer;
-
   late AnimationController controller;
 
   void getWeather() async {
@@ -49,7 +51,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
       temperature = value.split(",")[0];
       humidity = value.split(",")[1];
     });
-
+    cent = (double.parse(temperature) - 32)*5/9;
+    centigrade = cent.round();
   }
 
   void initState() {
@@ -70,7 +73,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
       // setState((){
       //   counter++;
       // });
-
     });
     controller.repeat();
 
@@ -96,10 +98,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
 
 
 
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Weather'),
+        title: const Text('Weather🌧'),
       ),
       body: Center(
           child: Column(
@@ -111,13 +112,52 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                 //   child: const Text("Get weather!"),
                 // ),
                 // Text('timer $counter'),
-                Text('temperature: $temperature F'),
-                Text('humidity: $humidity %'),
+                Text('Show temperature in Centigrade:',
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+                Switch(
+                  value: switchSelected,
+                  onChanged:(value){
+                    setState(() {
+                      switchSelected=value;
+                    });
+                  },
+                ),
+                Text(''),
+                if (switchSelected == true)
+                  Text('Temperature in Centigrade: $centigrade ℃',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                  ),
+                if (switchSelected == false)
+                  Text('Temperature in Fahrenheit: $temperature ℉',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                  ),
+                Text('Humidity: $humidity %',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 LinearProgressIndicator(
                   value: controller.value,
                   semanticsLabel: 'Linear progress indicator',
                 ),
-
+                Text('Tips: '),
+                if (centigrade > 35)
+                  Text('Be careful of heatstroke!🔥🥵‍🔥'),
+                if (26 <= centigrade && centigrade <= 35)
+                  Text('Dress cooler!🎽'),
+                if (16 <= centigrade && centigrade <= 25)
+                  Text('T-shirt and trousers are good!👕👚'),
+                if (0 <= centigrade && centigrade <= 15)
+                  Text('Had better take your coat!🧥'),
+                if (0 > centigrade)
+                  Text('Wear the more the better! Unless you are a polar bear!❄🐻‍❄'),
               ]
           )
 
