@@ -19,7 +19,7 @@ Vamshi
         
         
         
-                                      Instructions for pico w
+                                      Instructions for pico-w
 
 First step, get the pico ready to work by installing the corresponding tools.
 Then, onnect the pins of dht11 (Vcc, GND, Data) with the pins of our raspberry pi pico using the cables and the breadboard.
