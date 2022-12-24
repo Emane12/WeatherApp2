@@ -2,7 +2,7 @@
 
 
 
-                                                  Weather Station App Project
+                                                Weather Station App Project
 Group members:
 
 Allen
@@ -19,7 +19,7 @@ Vamshi
         
         
         
-                                       Instructions for pico w
+                                      Instructions for pico w
 
 First step, get the pico ready to work by installing the corresponding tools.
 Then, onnect the pins of dht11 (Vcc, GND, Data) with the pins of our raspberry pi pico using the cables and the breadboard.
@@ -41,7 +41,7 @@ Storing data to an atSign. Then Sending data to our flutter app and displaying w
 
 
 
-                                          Instructions for flutter app
+                                       Instructions for flutter app
 
 * cd weather_app
 * flutter run (make sure you have an ios or android device)
